@@ -1,0 +1,6 @@
+spyder
+pyqt5-tools
+matplotlib
+scikit-image
+scikit-learn
+qimage2ndarray
