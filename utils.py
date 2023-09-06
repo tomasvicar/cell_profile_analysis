@@ -304,6 +304,38 @@ def newCell(overlay, birnary_line, transparency):
     
     return overlay
 
+
+
+def refineCell(overlay, birnary_line):
+    
+    overlay_arr = QImageToArray(overlay)
+    transparency = np.max(overlay_arr[:,:,3])
+    
+
+    label_arr = colorToLabel(overlay_arr, transparency)
+    
+    
+    birnary_line_arr = QImageToArray(birnary_line)[:,:,3] == 255
+    
+    label_arr_u = toUniqueLabel(label_arr)
+
+    selected_nums = label_arr_u[birnary_line_arr]
+    selected_nums = selected_nums[selected_nums != 0]
+    
+    if len(selected_nums) > 0:
+        for selected_num in selected_nums:
+            binary_selected = label_arr_u == selected_nums
+            
+            overlay_arr[0] = 0
+
+    
+    
+    overlay = arrayToQImage(overlay_arr)
+    
+    return overlay
+
+
+
     
 
 

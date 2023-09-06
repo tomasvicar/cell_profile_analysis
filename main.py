@@ -248,6 +248,8 @@ class ImageViewerDrawing(QGraphicsView):
                     self.removeCell()  
                 elif self._buttonType == 'new':
                     self.newCell()  
+                elif self._buttonType == 'refine':
+                    self.refineCell()  
             else:
                 self.history.save_state()
                         
@@ -364,7 +366,14 @@ class ImageViewerDrawing(QGraphicsView):
         self.updateOverlay()
         self.history.save_state()
         
-    
+    def refineCell(self):
+        birnary_line = utils.toBinaryLine(self.whole_line_pos, self._pixmap.size())
+        self.overlay = utils.refineCell(self.overlay, birnary_line)
+        self.updateOverlay()
+        self.history.save_state()
+        
+        
+        
     
     def setArray(self, array):
         
@@ -452,6 +461,10 @@ class MainWindow(QMainWindow):
         self.pushButton_new_cell.clicked.connect(self.pushButton_new_cell_clicked)
         
         
+        self.pushButton_refine = self.findChild(QtWidgets.QPushButton,"pushButton_refine")
+        self.pushButton_refine.clicked.connect(self.pushButton_refine_clicked)
+        
+        
         
         self.doubleSpinBox_contrast_min = self.findChild(QtWidgets.QDoubleSpinBox,"doubleSpinBox_contrast_min")
         self.doubleSpinBox_contrast_min.valueChanged.connect(self.contrast_changed)
@@ -509,6 +522,9 @@ class MainWindow(QMainWindow):
         
     def pushButton_new_cell_clicked(self):
         self.viewer.setDrawLineButtons('new')
+        
+    def pushButton_refine_clicked(self):
+        self.viewer.setDrawLineButtons('refine')
 
     def actionOpen_clicked(self):
         # Open a QFileDialog in 'Open File' mode.

@@ -4,3 +4,4 @@ matplotlib
 scikit-image
 scikit-learn
 qimage2ndarray
+opencv-python

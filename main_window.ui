@@ -252,6 +252,13 @@
         </property>
        </spacer>
       </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_refine">
+        <property name="text">
+         <string>refine</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </item>
    </layout>
